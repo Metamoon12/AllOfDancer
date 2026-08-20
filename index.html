@@ -1,1 +1,520 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+<title>AllOfDancer</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background: #050505;
+    color: white;
+}
+
+/* HEADER */
+
+header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 6%;
+    z-index: 100;
+    background: rgba(0,0,0,0.55);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+
+.logo {
+    font-size: 24px;
+    font-weight: 900;
+    letter-spacing: -1px;
+}
+
+.logo span {
+    color: #ff3c00;
+}
+
+nav {
+    display: flex;
+    gap: 35px;
+}
+
+nav a {
+    color: #ddd;
+    text-decoration: none;
+    font-size: 14px;
+    transition: 0.3s;
+}
+
+nav a:hover {
+    color: #ff3c00;
+}
+
+/* HERO */
+
+.hero {
+    min-height: 100vh;
+    position: relative;
+    overflow: hidden;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background:
+        radial-gradient(
+            ellipse at 50% -10%,
+            rgba(255,255,255,0.28) 0%,
+            rgba(255,255,255,0.08) 18%,
+            rgba(0,0,0,0) 48%
+        ),
+        linear-gradient(
+            to bottom,
+            #111 0%,
+            #050505 60%,
+            #000 100%
+        );
+}
+
+/* 핀조명 */
+
+.spotlight {
+    position: absolute;
+    top: -20%;
+    left: 50%;
+    transform: translateX(-50%);
+
+    width: 500px;
+    height: 900px;
+
+    background: linear-gradient(
+        180deg,
+        rgba(255,255,255,0.30),
+        rgba(255,255,255,0.04),
+        transparent
+    );
+
+    clip-path: polygon(
+        42% 0,
+        58% 0,
+        85% 100%,
+        15% 100%
+    );
+
+    filter: blur(15px);
+}
+
+/* HERO CONTENT */
+
+.hero-content {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    padding: 20px;
+}
+
+.small-title {
+    font-size: 13px;
+    letter-spacing: 6px;
+    color: #ff3c00;
+    margin-bottom: 25px;
+}
+
+.hero h1 {
+    font-size: clamp(60px, 11vw, 150px);
+    font-weight: 900;
+    letter-spacing: -8px;
+    line-height: 0.85;
+}
+
+.hero h1 span {
+    color: transparent;
+    -webkit-text-stroke: 2px white;
+}
+
+.hero p {
+    margin-top: 35px;
+    color: #aaa;
+    font-size: 17px;
+    line-height: 1.7;
+}
+
+.buttons {
+    margin-top: 40px;
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+}
+
+.btn {
+    padding: 15px 30px;
+    border-radius: 4px;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 14px;
+    transition: 0.3s;
+}
+
+.btn-main {
+    background: #ff3c00;
+    color: white;
+}
+
+.btn-main:hover {
+    background: #ff5722;
+    transform: translateY(-3px);
+}
+
+.btn-line {
+    border: 1px solid #555;
+    color: white;
+}
+
+.btn-line:hover {
+    border-color: white;
+}
+
+/* SECTION */
+
+section {
+    padding: 120px 8%;
+}
+
+.section-title {
+    font-size: 42px;
+    font-weight: 900;
+    margin-bottom: 15px;
+}
+
+.section-sub {
+    color: #888;
+    margin-bottom: 60px;
+}
+
+/* CARDS */
+
+.cards {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+}
+
+.card {
+    background: #111;
+    border: 1px solid #222;
+    padding: 40px 30px;
+    min-height: 240px;
+    transition: 0.3s;
+}
+
+.card:hover {
+    transform: translateY(-8px);
+    border-color: #ff3c00;
+}
+
+.card-number {
+    color: #ff3c00;
+    font-size: 13px;
+    margin-bottom: 30px;
+}
+
+.card h3 {
+    font-size: 25px;
+    margin-bottom: 15px;
+}
+
+.card p {
+    color: #888;
+    line-height: 1.7;
+}
+
+/* ABOUT */
+
+.about {
+    background: #0b0b0b;
+}
+
+.about-content {
+    max-width: 900px;
+}
+
+.about h2 {
+    font-size: clamp(40px, 6vw, 80px);
+    line-height: 1;
+    margin-bottom: 30px;
+}
+
+.about p {
+    color: #999;
+    font-size: 18px;
+    line-height: 1.9;
+}
+
+/* FOOTER */
+
+footer {
+    padding: 40px 8%;
+    border-top: 1px solid #222;
+    color: #555;
+    font-size: 13px;
+    display: flex;
+    justify-content: space-between;
+}
+
+/* MOBILE */
+
+@media (max-width: 768px) {
+
+    header {
+        height: 65px;
+        padding: 0 5%;
+    }
+
+    nav {
+        display: none;
+    }
+
+    .hero h1 {
+        letter-spacing: -4px;
+    }
+
+    .hero p {
+        font-size: 14px;
+    }
+
+    .buttons {
+        flex-direction: column;
+    }
+
+    .btn {
+        width: 220px;
+        margin: auto;
+    }
+
+    .cards {
+        grid-template-columns: 1fr;
+    }
+
+    section {
+        padding: 80px 7%;
+    }
+
+    footer {
+        flex-direction: column;
+        gap: 10px;
+    }
+}
+</style>
+</head>
+
+
+<body>
+
+<header>
+
+    <div class="logo">
+        AllOf<span>Dancer</span>
+    </div>
+
+    <nav>
+        <a href="#about">ABOUT</a>
+        <a href="#dancers">DANCERS</a>
+        <a href="#projects">PROJECTS</a>
+        <a href="#contact">CONTACT</a>
+    </nav>
+
+</header>
+
+
+<main>
+
+<section class="hero">
+
+    <div class="spotlight"></div>
+
+    <div class="hero-content">
+
+        <div class="small-title">
+            DANCE · PEOPLE · OPPORTUNITY
+        </div>
+
+        <h1>
+            ALL OF<br>
+            <span>DANCER</span>
+        </h1>
+
+        <p>
+            댄서와 안무가, 그리고 새로운 기회를 연결하는<br>
+            Dance Industry Platform
+        </p>
+
+        <div class="buttons">
+
+            <a href="#dancers" class="btn btn-main">
+                댄서 찾기
+            </a>
+
+            <a href="#projects" class="btn btn-line">
+                프로젝트 찾기
+            </a>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<section id="dancers">
+
+    <div class="section-title">
+        FIND YOUR DANCE
+    </div>
+
+    <div class="section-sub">
+        당신에게 필요한 댄서와 안무가를 찾아보세요.
+    </div>
+
+    <div class="cards">
+
+        <div class="card">
+            <div class="card-number">01 / DANCER</div>
+            <h3>댄서 찾기</h3>
+            <p>
+                장르와 스타일에 맞는
+                다양한 댄서들의 프로필을
+                찾아보세요.
+            </p>
+        </div>
+
+        <div class="card">
+            <div class="card-number">02 / CHOREOGRAPHER</div>
+            <h3>안무가 찾기</h3>
+            <p>
+                자신만의 스타일을 가진
+                안무가와 새로운 프로젝트를
+                시작해보세요.
+            </p>
+        </div>
+
+        <div class="card">
+            <div class="card-number">03 / PROJECT</div>
+            <h3>프로젝트 찾기</h3>
+            <p>
+                공연, 영상, 광고 등
+                다양한 댄스 프로젝트를
+                확인해보세요.
+            </p>
+        </div>
+
+    </div>
+
+</section>
+
+
+<section class="about" id="about">
+
+    <div class="about-content">
+
+        <div class="small-title">
+            ABOUT ALLOFDANCER
+        </div>
+
+        <h2>
+            DANCE<br>
+            CONNECTS<br>
+            PEOPLE.
+        </h2>
+
+        <p>
+            AllOfDancer는 댄서와 안무가,
+            그리고 댄스를 필요로 하는 사람들을
+            하나의 공간에서 연결하는 플랫폼을 목표로 합니다.
+            <br><br>
+            자신의 춤을 세상에 보여주고,
+            새로운 사람을 만나고,
+            새로운 기회를 발견할 수 있는 공간.
+        </p>
+
+    </div>
+
+</section>
+
+
+<section id="projects">
+
+    <div class="section-title">
+        PROJECTS
+    </div>
+
+    <div class="section-sub">
+        새로운 프로젝트가 이곳에서 시작됩니다.
+    </div>
+
+    <div class="cards">
+
+        <div class="card">
+            <div class="card-number">PROJECT 01</div>
+            <h3>PERFORMANCE</h3>
+            <p>
+                공연 및 무대 퍼포먼스
+                프로젝트를 위한 댄서 모집
+            </p>
+        </div>
+
+        <div class="card">
+            <div class="card-number">PROJECT 02</div>
+            <h3>VIDEO</h3>
+            <p>
+                뮤직비디오, 콘텐츠 및
+                영상 촬영 프로젝트
+            </p>
+        </div>
+
+        <div class="card">
+            <div class="card-number">PROJECT 03</div>
+            <h3>CLASS</h3>
+            <p>
+                새로운 클래스와
+                댄스 교육 프로그램
+            </p>
+        </div>
+
+    </div>
+
+</section>
+
+</main>
+
+
+<footer id="contact">
+
+    <div>
+        © 2026 AllOfDancer
+    </div>
+
+    <div>
+        DANCE · PEOPLE · OPPORTUNITY
+    </div>
+
+</footer>
+
+</body>
+</html>
