@@ -1,0 +1,685 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>AllOfDancer | Dancers</title>
+
+<style>
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background: #050505;
+    color: white;
+}
+
+
+/* HEADER */
+
+header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 80px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 0 6%;
+
+    z-index: 100;
+
+    background: rgba(0,0,0,0.65);
+    backdrop-filter: blur(10px);
+
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+
+.logo {
+    font-size: 24px;
+    font-weight: 900;
+    letter-spacing: -1px;
+}
+
+.logo span {
+    color: #ff3c00;
+}
+
+.back {
+    color: #aaa;
+    text-decoration: none;
+    font-size: 14px;
+    transition: 0.3s;
+}
+
+.back:hover {
+    color: #ff3c00;
+}
+
+
+/* HERO */
+
+.hero {
+    padding: 170px 8% 80px;
+
+    background:
+        radial-gradient(
+            ellipse at 50% -20%,
+            rgba(255,255,255,0.20),
+            rgba(0,0,0,0) 55%
+        ),
+        linear-gradient(
+            to bottom,
+            #111,
+            #050505
+        );
+}
+
+.small-title {
+    font-size: 13px;
+    letter-spacing: 6px;
+    color: #ff3c00;
+    margin-bottom: 25px;
+}
+
+.hero h1 {
+    font-size: clamp(55px, 9vw, 110px);
+    font-weight: 900;
+    line-height: 0.9;
+    letter-spacing: -6px;
+}
+
+.hero h1 span {
+    color: transparent;
+    -webkit-text-stroke: 2px white;
+}
+
+.hero p {
+    margin-top: 30px;
+    color: #888;
+    font-size: 16px;
+    line-height: 1.7;
+}
+
+
+/* SECTION */
+
+section {
+    padding: 90px 8%;
+}
+
+.section-title {
+    font-size: 38px;
+    font-weight: 900;
+    margin-bottom: 12px;
+}
+
+.section-sub {
+    color: #777;
+    margin-bottom: 40px;
+}
+
+
+/* GENRE */
+
+.genre-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+}
+
+.genre {
+    position: relative;
+
+    padding: 28px 22px;
+
+    background: #111;
+    border: 1px solid #222;
+
+    color: white;
+    text-decoration: none;
+
+    transition: 0.3s;
+
+    cursor: pointer;
+}
+
+.genre-number {
+    color: #ff3c00;
+    font-size: 11px;
+    margin-bottom: 20px;
+}
+
+.genre h3 {
+    font-size: 21px;
+}
+
+.genre:hover,
+.genre.active {
+    background: #ff3c00;
+    border-color: #ff3c00;
+    transform: translateY(-5px);
+}
+
+.genre:hover .genre-number,
+.genre.active .genre-number {
+    color: white;
+}
+
+
+/* DANCERS */
+
+.dancer-section {
+    background: #0b0b0b;
+}
+
+.dancer-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: end;
+    margin-bottom: 40px;
+}
+
+.current-genre {
+    color: #ff3c00;
+    font-size: 13px;
+    letter-spacing: 3px;
+}
+
+
+/* PROFILE GRID */
+
+.profile-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+}
+
+
+/* PROFILE */
+
+.profile {
+    background: #111;
+    border: 1px solid #222;
+
+    transition: 0.3s;
+
+    overflow: hidden;
+}
+
+.profile:hover {
+    transform: translateY(-7px);
+    border-color: #ff3c00;
+}
+
+.profile-image {
+    height: 300px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #222,
+            #090909
+        );
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    color: #444;
+
+    font-size: 13px;
+}
+
+.profile-info {
+    padding: 25px;
+}
+
+.profile-info h3 {
+    font-size: 23px;
+    margin-bottom: 8px;
+}
+
+.profile-genre {
+    color: #ff3c00;
+    font-size: 12px;
+    letter-spacing: 2px;
+    margin-bottom: 15px;
+}
+
+.profile-location {
+    color: #777;
+    font-size: 13px;
+}
+
+.profile-description {
+    color: #888;
+    line-height: 1.6;
+    margin-top: 15px;
+    font-size: 13px;
+}
+
+
+/* REGISTER */
+
+.register {
+    margin-top: 60px;
+
+    border: 1px solid #333;
+
+    padding: 35px;
+
+    background: #101010;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.register-text h3 {
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+.register-text p {
+    color: #777;
+    font-size: 14px;
+}
+
+.register-button {
+    display: inline-block;
+
+    padding: 15px 28px;
+
+    background: #ff3c00;
+
+    color: white;
+
+    text-decoration: none;
+
+    font-size: 14px;
+    font-weight: bold;
+
+    transition: 0.3s;
+}
+
+.register-button:hover {
+    background: #ff5722;
+    transform: translateY(-3px);
+}
+
+
+/* FOOTER */
+
+footer {
+    padding: 40px 8%;
+
+    border-top: 1px solid #222;
+
+    color: #555;
+
+    font-size: 13px;
+
+    display: flex;
+    justify-content: space-between;
+}
+
+
+/* MOBILE */
+
+@media (max-width: 900px) {
+
+    .genre-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .profile-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+}
+
+@media (max-width: 600px) {
+
+    header {
+        height: 65px;
+        padding: 0 5%;
+    }
+
+    .hero {
+        padding: 140px 7% 70px;
+    }
+
+    .hero h1 {
+        letter-spacing: -4px;
+    }
+
+    section {
+        padding: 70px 7%;
+    }
+
+    .genre-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .profile-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .profile-image {
+        height: 280px;
+    }
+
+    .register {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 25px;
+    }
+
+    footer {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+}
+
+</style>
+</head>
+
+
+<body>
+
+
+<!-- HEADER -->
+
+<header>
+
+    <div class="logo">
+        AllOf<span>Dancer</span>
+    </div>
+
+    <a href="index.html" class="back">
+        ← BACK TO HOME
+    </a>
+
+</header>
+
+
+<!-- HERO -->
+
+<section class="hero">
+
+    <div class="small-title">
+        ALL OF DANCER · DANCERS
+    </div>
+
+    <h1>
+        FIND<br>
+        <span>DANCERS.</span>
+    </h1>
+
+    <p>
+        원하는 장르와 스타일의 댄서를 찾아보세요.<br>
+        자신의 춤을 보여주고 새로운 기회를 만나보세요.
+    </p>
+
+</section>
+
+
+<!-- GENRE -->
+
+<section>
+
+    <div class="section-title">
+        DANCE GENRES
+    </div>
+
+    <div class="section-sub">
+        찾고 싶은 댄스 장르를 선택하세요.
+    </div>
+
+
+    <div class="genre-grid">
+
+        <div class="genre active">
+            <div class="genre-number">01</div>
+            <h3>BREAKING</h3>
+        </div>
+
+        <div class="genre">
+            <div class="genre-number">02</div>
+            <h3>POPPING</h3>
+        </div>
+
+        <div class="genre">
+            <div class="genre-number">03</div>
+            <h3>LOCKING</h3>
+        </div>
+
+        <div class="genre">
+            <div class="genre-number">04</div>
+            <h3>WAACKING</h3>
+        </div>
+
+        <div class="genre">
+            <div class="genre-number">05</div>
+            <h3>HIPHOP</h3>
+        </div>
+
+        <div class="genre">
+            <div class="genre-number">06</div>
+            <h3>HOUSE</h3>
+        </div>
+
+        <div class="genre">
+            <div class="genre-number">07</div>
+            <h3>KRUMP</h3>
+        </div>
+
+        <div class="genre">
+            <div class="genre-number">08</div>
+            <h3>CHOREOGRAPHY</h3>
+        </div>
+
+        <div class="genre">
+            <div class="genre-number">09</div>
+            <h3>VOGUE</h3>
+        </div>
+
+        <div class="genre">
+            <div class="genre-number">10</div>
+            <h3>DANCEHALL</h3>
+        </div>
+
+        <div class="genre">
+            <div class="genre-number">11</div>
+            <h3>CONTEMPORARY</h3>
+        </div>
+
+        <div class="genre">
+            <div class="genre-number">12</div>
+            <h3>ETC.</h3>
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- DANCERS -->
+
+<section class="dancer-section">
+
+    <div class="dancer-header">
+
+        <div>
+
+            <div class="section-title">
+                DANCERS
+            </div>
+
+            <div class="section-sub">
+                등록된 댄서들의 프로필입니다.
+            </div>
+
+        </div>
+
+        <div class="current-genre">
+            BREAKING
+        </div>
+
+    </div>
+
+
+    <div class="profile-grid">
+
+
+        <!-- PROFILE 01 -->
+
+        <div class="profile">
+
+            <div class="profile-image">
+                PROFILE IMAGE
+            </div>
+
+            <div class="profile-info">
+
+                <div class="profile-genre">
+                    BREAKING
+                </div>
+
+                <h3>DANCER NAME</h3>
+
+                <div class="profile-location">
+                    SEOUL, KOREA
+                </div>
+
+                <div class="profile-description">
+                    자신의 스타일과 활동을 소개하는
+                    프로필 공간입니다.
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- PROFILE 02 -->
+
+        <div class="profile">
+
+            <div class="profile-image">
+                PROFILE IMAGE
+            </div>
+
+            <div class="profile-info">
+
+                <div class="profile-genre">
+                    BREAKING
+                </div>
+
+                <h3>DANCER NAME</h3>
+
+                <div class="profile-location">
+                    SEOUL, KOREA
+                </div>
+
+                <div class="profile-description">
+                    자신의 스타일과 활동을 소개하는
+                    프로필 공간입니다.
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- PROFILE 03 -->
+
+        <div class="profile">
+
+            <div class="profile-image">
+                PROFILE IMAGE
+            </div>
+
+            <div class="profile-info">
+
+                <div class="profile-genre">
+                    BREAKING
+                </div>
+
+                <h3>DANCER NAME</h3>
+
+                <div class="profile-location">
+                    SEOUL, KOREA
+                </div>
+
+                <div class="profile-description">
+                    자신의 스타일과 활동을 소개하는
+                    프로필 공간입니다.
+                </div>
+
+            </div>
+
+        </div>
+
+
+    </div>
+
+
+    <!-- REGISTER -->
+
+    <div class="register">
+
+        <div class="register-text">
+
+            <h3>
+                ARE YOU A DANCER?
+            </h3>
+
+            <p>
+                당신의 춤과 프로필을 AllOfDancer에 등록해보세요.
+            </p>
+
+        </div>
+
+        <a href="#" class="register-button">
+            PROFILE 등록하기
+        </a>
+
+    </div>
+
+
+</section>
+
+
+<!-- FOOTER -->
+
+<footer>
+
+    <div>
+        © 2026 AllOfDancer
+    </div>
+
+    <div>
+        DANCE · PEOPLE · OPPORTUNITY
+    </div>
+
+</footer>
+
+
+</body>
+</html>
