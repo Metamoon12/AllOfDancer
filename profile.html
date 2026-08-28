@@ -1,0 +1,872 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+>
+
+<title>
+    AllOfDancer | Profile
+</title>
+
+
+<style>
+
+* {
+
+    margin: 0;
+
+    padding: 0;
+
+    box-sizing: border-box;
+
+}
+
+
+body {
+
+    background: #050505;
+
+    color: white;
+
+    font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
+
+}
+
+
+header {
+
+    height: 80px;
+
+    position: fixed;
+
+    top: 0;
+
+    left: 0;
+
+    width: 100%;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    padding: 0 6%;
+
+    background:
+        rgba(0,0,0,0.75);
+
+    backdrop-filter:
+        blur(10px);
+
+    border-bottom:
+        1px solid #222;
+
+    z-index: 100;
+
+}
+
+
+.logo {
+
+    font-size: 24px;
+
+    font-weight: 900;
+
+}
+
+
+.logo span {
+
+    color: #ff3c00;
+
+}
+
+
+.back {
+
+    color: #aaa;
+
+    text-decoration: none;
+
+    font-size: 13px;
+
+}
+
+
+.back:hover {
+
+    color: #ff3c00;
+
+}
+
+
+/* =========================
+   PROFILE
+========================= */
+
+.profile-page {
+
+    padding:
+
+        150px 8% 100px;
+
+}
+
+
+.profile-container {
+
+    max-width: 1200px;
+
+    margin: auto;
+
+}
+
+
+.profile-top {
+
+    display: grid;
+
+    grid-template-columns:
+        420px 1fr;
+
+    gap: 70px;
+
+    align-items: start;
+
+}
+
+
+/* IMAGE */
+
+.profile-photo {
+
+    width: 100%;
+
+    aspect-ratio: 1 / 1.2;
+
+    background:
+        linear-gradient(
+            135deg,
+            #222,
+            #080808
+        );
+
+    border:
+        1px solid #222;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    color: #444;
+
+}
+
+
+.profile-photo img {
+
+    width: 100%;
+
+    height: 100%;
+
+    object-fit: cover;
+
+}
+
+
+/* INFO */
+
+.profile-label {
+
+    color: #ff3c00;
+
+    font-size: 12px;
+
+    letter-spacing: 3px;
+
+    margin-bottom: 15px;
+
+}
+
+
+.profile-name {
+
+    font-size:
+        clamp(45px, 6vw, 80px);
+
+    font-weight: 900;
+
+    line-height: 0.9;
+
+    margin-bottom: 20px;
+
+}
+
+
+.profile-real-name {
+
+    color: #aaa;
+
+    font-size: 15px;
+
+    margin-bottom: 30px;
+
+}
+
+
+.info-row {
+
+    padding: 18px 0;
+
+    border-bottom:
+        1px solid #222;
+
+}
+
+
+.info-title {
+
+    color: #666;
+
+    font-size: 11px;
+
+    letter-spacing: 2px;
+
+    margin-bottom: 6px;
+
+}
+
+
+.info-value {
+
+    color: #ddd;
+
+    font-size: 15px;
+
+}
+
+
+/* =========================
+   DETAIL
+========================= */
+
+.detail-section {
+
+    margin-top: 100px;
+
+    border-top:
+        1px solid #222;
+
+    padding-top: 70px;
+
+}
+
+
+.detail-box {
+
+    margin-bottom: 55px;
+
+}
+
+
+.detail-title {
+
+    color: #ff3c00;
+
+    font-size: 12px;
+
+    letter-spacing: 3px;
+
+    margin-bottom: 20px;
+
+}
+
+
+.detail-content {
+
+    color: #aaa;
+
+    line-height: 1.8;
+
+    font-size: 14px;
+
+    white-space: pre-line;
+
+}
+
+
+/* SNS */
+
+.sns-link {
+
+    display: inline-block;
+
+    color: #ff3c00;
+
+    text-decoration: none;
+
+    font-size: 14px;
+
+}
+
+
+.sns-link:hover {
+
+    text-decoration: underline;
+
+}
+
+
+/* REFERENCES */
+
+.reference-box {
+
+    border:
+        1px solid #222;
+
+    background: #0d0d0d;
+
+    padding: 25px;
+
+    color: #666;
+
+}
+
+
+/* =========================
+   FOOTER
+========================= */
+
+footer {
+
+    border-top:
+        1px solid #222;
+
+    padding: 40px 8%;
+
+    color: #555;
+
+    font-size: 12px;
+
+    display: flex;
+
+    justify-content: space-between;
+
+}
+
+
+/* =========================
+   MOBILE
+========================= */
+
+@media(max-width: 800px) {
+
+    .profile-top {
+
+        grid-template-columns: 1fr;
+
+        gap: 40px;
+
+    }
+
+
+    .profile-photo {
+
+        max-width: 500px;
+
+        margin: auto;
+
+    }
+
+
+    .profile-page {
+
+        padding:
+            120px 7% 70px;
+
+    }
+
+
+    .profile-name {
+
+        font-size: 55px;
+
+    }
+
+
+    footer {
+
+        flex-direction: column;
+
+        gap: 10px;
+
+    }
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<header>
+
+    <div class="logo">
+
+        AllOf<span>Dancer</span>
+
+    </div>
+
+
+    <a
+        href="dancers.html"
+        class="back"
+    >
+
+        ← BACK TO DANCERS
+
+    </a>
+
+</header>
+
+
+
+<section class="profile-page">
+
+
+<div class="profile-container">
+
+
+<div class="profile-top">
+
+
+<!-- PHOTO -->
+
+<div
+    class="profile-photo"
+    id="profilePhoto"
+>
+
+    PROFILE IMAGE
+
+</div>
+
+
+
+<!-- BASIC INFO -->
+
+<div>
+
+
+<div class="profile-label">
+
+    DANCER PROFILE
+
+</div>
+
+
+<div
+    class="profile-name"
+    id="dancerName"
+>
+
+    DANCER
+
+</div>
+
+
+<div
+    class="profile-real-name"
+    id="realName"
+>
+
+    이름
+
+</div>
+
+
+
+<div class="info-row">
+
+    <div class="info-title">
+        AGE
+    </div>
+
+    <div
+        class="info-value"
+        id="age"
+    >
+        -
+    </div>
+
+</div>
+
+
+
+<div class="info-row">
+
+    <div class="info-title">
+        MAIN GENRE
+    </div>
+
+    <div
+        class="info-value"
+        id="mainGenre"
+    >
+        -
+    </div>
+
+</div>
+
+
+
+<div class="info-row">
+
+    <div class="info-title">
+        SUB GENRE
+    </div>
+
+    <div
+        class="info-value"
+        id="subGenre"
+    >
+        -
+    </div>
+
+</div>
+
+
+
+<div class="info-row">
+
+    <div class="info-title">
+        ACTIVITY AREA
+    </div>
+
+    <div
+        class="info-value"
+        id="activityLocation"
+    >
+        -
+    </div>
+
+</div>
+
+
+
+<div class="info-row">
+
+    <div class="info-title">
+        CURRENT LOCATION
+    </div>
+
+    <div
+        class="info-value"
+        id="currentLocation"
+    >
+        -
+    </div>
+
+</div>
+
+</div>
+
+</div>
+
+
+
+<!-- =========================
+     DETAIL
+========================= -->
+
+<div class="detail-section">
+
+
+<!-- ABOUT -->
+
+<div class="detail-box">
+
+    <div class="detail-title">
+        ABOUT
+    </div>
+
+    <div
+        class="detail-content"
+        id="description"
+    >
+        -
+    </div>
+
+</div>
+
+
+
+<!-- CAREER -->
+
+<div class="detail-box">
+
+    <div class="detail-title">
+        CAREER
+    </div>
+
+    <div
+        class="detail-content"
+        id="career"
+    >
+        -
+    </div>
+
+</div>
+
+
+
+<!-- SNS -->
+
+<div class="detail-box">
+
+    <div class="detail-title">
+        SNS
+    </div>
+
+    <div id="sns">
+        -
+    </div>
+
+</div>
+
+
+
+<!-- REFERENCES -->
+
+<div class="detail-box">
+
+    <div class="detail-title">
+        REFERENCES
+    </div>
+
+    <div class="reference-box">
+
+        참고자료가 등록되면
+        이곳에서 확인할 수 있습니다.
+
+    </div>
+
+</div>
+
+
+</div>
+
+</div>
+
+</section>
+
+
+
+<footer>
+
+    <div>
+        © 2026 AllOfDancer
+    </div>
+
+    <div>
+        DANCE · PEOPLE · OPPORTUNITY
+    </div>
+
+</footer>
+
+
+
+<script>
+
+
+/* =========================
+   URL에서 ID 가져오기
+========================= */
+
+const params =
+    new URLSearchParams(
+        window.location.search
+    );
+
+
+const profileId =
+    params.get("id");
+
+
+/* =========================
+   프로필 데이터
+========================= */
+
+const profileData =
+    localStorage.getItem(
+        profileId
+    );
+
+
+if (profileData) {
+
+
+    const profile =
+        JSON.parse(
+            profileData
+        );
+
+
+    /* 이름 */
+
+    document.getElementById(
+        "dancerName"
+    ).textContent =
+        profile.dancerName ||
+        "-";
+
+
+    /* 실제 이름 */
+
+    document.getElementById(
+        "realName"
+    ).textContent =
+        profile.realName ||
+        "-";
+
+
+    /* 나이 */
+
+    document.getElementById(
+        "age"
+    ).textContent =
+        profile.age ||
+        "-";
+
+
+    /* 주장르 */
+
+    document.getElementById(
+        "mainGenre"
+    ).textContent =
+        profile.mainGenre ||
+        "-";
+
+
+    /* 부장르 */
+
+    document.getElementById(
+        "subGenre"
+    ).textContent =
+        profile.subGenre ||
+        "-";
+
+
+    /* 활동지역 */
+
+    document.getElementById(
+        "activityLocation"
+    ).textContent =
+        profile.activityLocation ||
+        "-";
+
+
+    /* 현재 거주지역 */
+
+    document.getElementById(
+        "currentLocation"
+    ).textContent =
+        profile.currentLocation ||
+        "-";
+
+
+    /* 자기소개 */
+
+    document.getElementById(
+        "description"
+    ).textContent =
+        profile.description ||
+        "등록된 자기소개가 없습니다.";
+
+
+    /* 경력 */
+
+    document.getElementById(
+        "career"
+    ).textContent =
+        profile.career ||
+        "등록된 경력사항이 없습니다.";
+
+
+    /* SNS */
+
+    const sns =
+        document.getElementById(
+            "sns"
+        );
+
+
+    if (profile.sns) {
+
+        sns.innerHTML = `
+
+            <a
+                href="${profile.sns}"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="sns-link"
+            >
+
+                SNS PROFILE →
+
+            </a>
+
+        `;
+
+    } else {
+
+        sns.textContent =
+            "등록된 SNS가 없습니다.";
+
+    }
+
+} else {
+
+
+    document.querySelector(
+        ".profile-container"
+    ).innerHTML = `
+
+        <h1>
+            PROFILE NOT FOUND
+        </h1>
+
+        <p style="
+            color:#777;
+            margin-top:20px;
+        ">
+
+            존재하지 않는 프로필입니다.
+
+        </p>
+
+    `;
+
+}
+
+</script>
+
+
+</body>
+
+</html>
