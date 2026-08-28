@@ -454,62 +454,62 @@ footer {
 
     <div class="genre-grid">
 
-        <div class="genre active">
+        <div class="genre active" data-genre="BREAKING">
             <div class="genre-number">01</div>
             <h3>BREAKING</h3>
         </div>
 
-        <div class="genre">
+        <div class="genre" data-genre="POPPING">
             <div class="genre-number">02</div>
             <h3>POPPING</h3>
         </div>
 
-        <div class="genre">
+        <div class="genre" data-genre="LOCKING">
             <div class="genre-number">03</div>
             <h3>LOCKING</h3>
         </div>
 
-        <div class="genre">
+        <div class="genre" data-genre="WAACKING">
             <div class="genre-number">04</div>
             <h3>WAACKING</h3>
         </div>
 
-        <div class="genre">
+        <div class="genre" data-genre="HIPHOP">
             <div class="genre-number">05</div>
             <h3>HIPHOP</h3>
         </div>
 
-        <div class="genre">
+        <div class="genre" data-genre="HOUSE">
             <div class="genre-number">06</div>
             <h3>HOUSE</h3>
         </div>
 
-        <div class="genre">
+        <div class="genre" data-genre="KRUMP">
             <div class="genre-number">07</div>
             <h3>KRUMP</h3>
         </div>
 
-        <div class="genre">
+        <div class="genre" data-genre="CHOREOGRAPHY">
             <div class="genre-number">08</div>
             <h3>CHOREOGRAPHY</h3>
         </div>
 
-        <div class="genre">
+        <div class="genre" data-genre="VOGUE">
             <div class="genre-number">09</div>
             <h3>VOGUE</h3>
         </div>
 
-        <div class="genre">
+        <div class="genre" data-genre="DANCEHALL">
             <div class="genre-number">10</div>
             <h3>DANCEHALL</h3>
         </div>
 
-        <div class="genre">
+        <div class="genre" data-genre="CONTEMPORARY">
             <div class="genre-number">11</div>
             <h3>CONTEMPORARY</h3>
         </div>
 
-        <div class="genre">
+        <div class="genre" data-genre="ETC">
             <div class="genre-number">12</div>
             <h3>ETC.</h3>
         </div>
@@ -537,7 +537,7 @@ footer {
 
         </div>
 
-        <div class="current-genre">
+        <div class="current-genre" id="currentGenre">
             BREAKING
         </div>
 
@@ -549,7 +549,7 @@ footer {
 
         <!-- PROFILE 01 -->
 
-        <div class="profile">
+        <div class="profile" data-genre="BREAKING">
 
             <div class="profile-image">
                 PROFILE IMAGE
@@ -579,7 +579,7 @@ footer {
 
         <!-- PROFILE 02 -->
 
-        <div class="profile">
+        <div class="profile" data-genre="BREAKING">
 
             <div class="profile-image">
                 PROFILE IMAGE
@@ -609,7 +609,7 @@ footer {
 
         <!-- PROFILE 03 -->
 
-        <div class="profile">
+        <div class="profile" data-genre="BREAKING">
 
             <div class="profile-image">
                 PROFILE IMAGE
@@ -679,6 +679,50 @@ footer {
     </div>
 
 </footer>
+
+
+<!-- GENRE FILTER SCRIPT -->
+
+<script>
+
+const genres = document.querySelectorAll(".genre");
+const profiles = document.querySelectorAll(".profile");
+const currentGenre = document.getElementById("currentGenre");
+
+genres.forEach(genre => {
+
+    genre.addEventListener("click", function() {
+
+        // 클릭한 장르
+        const selectedGenre = this.dataset.genre;
+
+        // 모든 장르 active 제거
+        genres.forEach(item => {
+            item.classList.remove("active");
+        });
+
+        // 클릭한 장르 active
+        this.classList.add("active");
+
+        // 현재 장르 표시
+        currentGenre.textContent = selectedGenre;
+
+        // 프로필 필터링
+        profiles.forEach(profile => {
+
+            if (profile.dataset.genre === selectedGenre) {
+                profile.style.display = "block";
+            } else {
+                profile.style.display = "none";
+            }
+
+        });
+
+    });
+
+});
+
+</script>
 
 
 </body>
