@@ -15,22 +15,35 @@ export async function onRequestPost(context) {
     const result = await context.env.DB
       .prepare(`
         INSERT INTO dancers
-        (name, dancer_name, age, available_area, current_area, main_genre, sub_genre, sns, career, introduction, photo, reference)
+        (
+          name,
+          stage_name,
+          age,
+          available_region,
+          residence,
+          main_genre,
+          sub_genre,
+          sns,
+          career,
+          introduction,
+          profile_image,
+          reference_video
+        )
         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
       `)
       .bind(
         data.name,
-        data.dancer_name,
-        data.age,
-        data.available_area,
-        data.current_area,
+        data.stage_name,
+        data.age || null,
+        data.available_region,
+        data.residence,
         data.main_genre,
         data.sub_genre,
         data.sns,
         data.career,
         data.introduction,
-        data.photo,
-        data.reference
+        data.profile_image,
+        data.reference_video
       )
       .run();
 
@@ -38,6 +51,7 @@ export async function onRequestPost(context) {
       success: true,
       id: result.meta.last_row_id
     });
+
   } catch (error) {
     return Response.json({
       success: false,
