@@ -1,0 +1,11 @@
+{
+  "name": "allofdancer",
+  "compatibility_date": "2026-09-01",
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "dancerprofile",
+      "database_id": "3eb9ac91-3c6c-4d08-b275-d1a20b3785c3"
+    }
+  ]
+}
