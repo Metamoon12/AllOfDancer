@@ -1778,10 +1778,14 @@ const profileForm =
 
 profileForm.addEventListener(
     "submit",
-    function(event) {
+    async function(event) {
 
         event.preventDefault();
 
+
+        /* =========================
+           입력값 가져오기
+        ========================= */
 
         const realName =
             document.getElementById(
@@ -1843,323 +1847,364 @@ profileForm.addEventListener(
             ).value.trim();
 
 
-        const imageFile =
-            profileImage.files[0];
+        /* =========================
+           D1 데이터 저장
+        ========================= */
 
+        try {
 
-        /*
-         * ⭐ 프로필 고유 ID
-         */
+            const response =
+                await fetch(
+                    "/api/dancers",
+                    {
+                        method: "POST",
 
-        const profileId =
-            "profile_" +
-            Date.now();
+                        headers: {
+                            "Content-Type":
+                                "application/json"
+                        },
 
+                        body: JSON.stringify({
 
-        /*
-         * ⭐ 상세페이지에서 사용할
-         * 전체 데이터를 저장
-         */
+                            name:
+                                realName,
 
-        const profileData = {
+                            stage_name:
+                                dancerName,
 
-            id: profileId,
+                            age:
+                                age
+                                    ? Number(age)
+                                    : null,
 
-            realName:
-                realName,
+                            available_region:
+                                activityLocation,
 
-            dancerName:
-                dancerName,
+                            residence:
+                                currentLocation,
 
-            age:
-                age,
+                            main_genre:
+                                mainGenre,
 
-            activityLocation:
-                activityLocation,
+                            sub_genre:
+                                subGenre,
 
-            currentLocation:
-                currentLocation,
+                            sns:
+                                sns,
 
-            mainGenre:
-                mainGenre,
+                            career:
+                                career,
 
-            subGenre:
-                subGenre,
+                            introduction:
+                                description,
 
-            sns:
-                sns,
+                            profile_image:
+                                "",
 
-            career:
-                career,
+                            reference_video:
+                                ""
 
-            description:
-                description
-
-        };
-
-
-        /*
-         * 현재 테스트에서는
-         * 브라우저 임시 저장
-         */
-
-        localStorage.setItem(
-
-            profileId,
-
-            JSON.stringify(
-                profileData
-            )
-
-        );
-
-
-        /*
-         * 대표사진
-         */
-
-        let imageHTML =
-            "PROFILE IMAGE";
-
-
-        if (imageFile) {
-
-            const imageURL =
-                URL.createObjectURL(
-                    imageFile
+                        })
+                    }
                 );
 
-            imageHTML = `
-                <img
-                    src="${imageURL}"
-                    alt="프로필 사진"
-                >
-            `;
 
-        }
+            const result =
+                await response.json();
 
-
-        /*
-         * 부장르
-         */
-
-        let subGenreHTML =
-            "";
-
-        if (subGenre) {
-
-            subGenreHTML = `
-                <div class="profile-subgenre">
-                    SUB · ${escapeHTML(
-                        subGenre
-                    )}
-                </div>
-            `;
-
-        }
-
-
-        /*
-         * 나이
-         */
-
-        let ageHTML =
-            "";
-
-        if (age) {
-
-            ageHTML = `
-                <div class="profile-age">
-                    AGE · ${escapeHTML(
-                        age
-                    )}
-                </div>
-            `;
-
-        }
-
-
-        /*
-         * 활동지역
-         */
-
-        let activityHTML =
-            "";
-
-        if (
-            activityLocation
-        ) {
-
-            activityHTML = `
-                <div class="profile-location">
-                    활동지역 · ${escapeHTML(
-                        activityLocation
-                    )}
-                </div>
-            `;
-
-        }
-
-
-        /*
-         * 현재 거주지역
-         */
-
-        let currentLocationHTML =
-            "";
-
-        if (
-            currentLocation
-        ) {
-
-            currentLocationHTML = `
-                <div class="profile-location">
-                    거주지역 · ${escapeHTML(
-                        currentLocation
-                    )}
-                </div>
-            `;
-
-        }
-
-
-        /*
-         * 카드 생성
-         */
-
-        const profile =
-            document.createElement(
-                "div"
-            );
-
-
-        profile.className =
-            "profile";
-
-
-        profile.dataset.genre =
-            mainGenre;
-
-
-        profile.dataset.profileId =
-            profileId;
-
-
-        profile.onclick =
-            function() {
-
-                openProfile(
-                    profileId
-                );
-
-            };
-
-
-        profile.innerHTML = `
-
-            <div class="profile-image">
-
-                ${imageHTML}
-
-            </div>
-
-
-            <div class="profile-info">
-
-                <div class="profile-genre">
-                    ${mainGenre}
-                </div>
-
-
-                <h3>
-                    ${escapeHTML(
-                        dancerName
-                    )}
-                </h3>
-
-
-                <div class="profile-real-name">
-                    ${escapeHTML(
-                        realName
-                    )}
-                </div>
-
-
-                ${ageHTML}
-
-                ${subGenreHTML}
-
-                ${activityHTML}
-
-                ${currentLocationHTML}
-
-            </div>
-
-        `;
-
-
-        profileGrid.appendChild(
-            profile
-        );
-
-
-        /*
-         * 등록한 주장르 선택
-         */
-
-        genres.forEach(item => {
-
-            item.classList.remove(
-                "active"
-            );
 
             if (
-                item.dataset.genre ===
-                mainGenre
+                !response.ok ||
+                !result.success
             ) {
 
-                item.classList.add(
-                    "active"
+                throw new Error(
+                    result.error ||
+                    "프로필 저장에 실패했습니다."
                 );
 
             }
 
-        });
+
+            /* =========================
+               DB에서 생성된 ID
+            ========================= */
+
+            const profileId =
+                result.id;
 
 
-        currentGenre.textContent =
-            mainGenre;
+            /* =========================
+               대표사진 미리보기
+               현재 기능 유지
+            ========================= */
+
+            const imageFile =
+                profileImage.files[0];
 
 
-        filterProfiles(
-            mainGenre
-        );
+            let imageHTML =
+                "PROFILE IMAGE";
 
 
-        closeProfileModal();
+            if (imageFile) {
+
+                const imageURL =
+                    URL.createObjectURL(
+                        imageFile
+                    );
+
+                imageHTML = `
+                    <img
+                        src="${imageURL}"
+                        alt="프로필 사진"
+                    >
+                `;
+
+            }
 
 
-        profileForm.reset();
+            /* =========================
+               부장르
+            ========================= */
+
+            let subGenreHTML =
+                "";
+
+            if (subGenre) {
+
+                subGenreHTML = `
+                    <div class="profile-subgenre">
+                        SUB · ${escapeHTML(
+                            subGenre
+                        )}
+                    </div>
+                `;
+
+            }
 
 
-        imagePreview.style.display =
-            "none";
+            /* =========================
+               나이
+            ========================= */
 
-        previewImage.src =
-            "";
+            let ageHTML =
+                "";
 
-        referenceList.innerHTML =
-            "";
+            if (age) {
+
+                ageHTML = `
+                    <div class="profile-age">
+                        AGE · ${escapeHTML(
+                            age
+                        )}
+                    </div>
+                `;
+
+            }
 
 
-        alert(
-            "프로필이 등록되었습니다!"
-        );
+            /* =========================
+               활동지역
+            ========================= */
+
+            let activityHTML =
+                "";
+
+            if (
+                activityLocation
+            ) {
+
+                activityHTML = `
+                    <div class="profile-location">
+                        활동지역 · ${escapeHTML(
+                            activityLocation
+                        )}
+                    </div>
+                `;
+
+            }
+
+
+            /* =========================
+               현재 거주지역
+            ========================= */
+
+            let currentLocationHTML =
+                "";
+
+            if (
+                currentLocation
+            ) {
+
+                currentLocationHTML = `
+                    <div class="profile-location">
+                        거주지역 · ${escapeHTML(
+                            currentLocation
+                        )}
+                    </div>
+                `;
+
+            }
+
+
+            /* =========================
+               카드 생성
+            ========================= */
+
+            const profile =
+                document.createElement(
+                    "div"
+                );
+
+
+            profile.className =
+                "profile";
+
+
+            profile.dataset.genre =
+                mainGenre;
+
+
+            profile.dataset.profileId =
+                profileId;
+
+
+            profile.onclick =
+                function() {
+
+                    openProfile(
+                        profileId
+                    );
+
+                };
+
+
+            profile.innerHTML = `
+
+                <div class="profile-image">
+
+                    ${imageHTML}
+
+                </div>
+
+
+                <div class="profile-info">
+
+                    <div class="profile-genre">
+                        ${escapeHTML(
+                            mainGenre
+                        )}
+                    </div>
+
+
+                    <h3>
+                        ${escapeHTML(
+                            dancerName
+                        )}
+                    </h3>
+
+
+                    <div class="profile-real-name">
+                        ${escapeHTML(
+                            realName
+                        )}
+                    </div>
+
+
+                    ${ageHTML}
+
+                    ${subGenreHTML}
+
+                    ${activityHTML}
+
+                    ${currentLocationHTML}
+
+                </div>
+
+            `;
+
+
+            profileGrid.appendChild(
+                profile
+            );
+
+
+            /* =========================
+               등록한 주장르 선택
+            ========================= */
+
+            genres.forEach(item => {
+
+                item.classList.remove(
+                    "active"
+                );
+
+
+                if (
+                    item.dataset.genre ===
+                    mainGenre
+                ) {
+
+                    item.classList.add(
+                        "active"
+                    );
+
+                }
+
+            });
+
+
+            currentGenre.textContent =
+                mainGenre;
+
+
+            filterProfiles(
+                mainGenre
+            );
+
+
+            closeProfileModal();
+
+
+            profileForm.reset();
+
+
+            imagePreview.style.display =
+                "none";
+
+
+            previewImage.src =
+                "";
+
+
+            referenceList.innerHTML =
+                "";
+
+
+            alert(
+                "프로필이 등록되었습니다!"
+            );
+
+
+        } catch (error) {
+
+            console.error(
+                "프로필 저장 오류:",
+                error
+            );
+
+
+            alert(
+                "프로필 저장에 실패했습니다.\n\n" +
+                error.message
+            );
+
+        }
 
     }
-);
-
-
+); 
+    
 /* =========================
    상세 프로필 이동
 ========================= */
