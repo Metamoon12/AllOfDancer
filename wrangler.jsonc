@@ -2,6 +2,12 @@
   "name": "allofdancer",
   "main": "src/index.js",
   "compatibility_date": "2026-09-01",
+
+  "assets": {
+    "directory": ".",
+    "binding": "ASSETS"
+  },
+
   "d1_databases": [
     {
       "binding": "DB",
