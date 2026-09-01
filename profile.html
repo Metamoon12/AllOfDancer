@@ -693,7 +693,6 @@ footer {
 
 <script>
 
-
 /* =========================
    URL에서 ID 가져오기
 ========================= */
@@ -709,143 +708,228 @@ const profileId =
 
 
 /* =========================
-   프로필 데이터
+   D1에서 프로필 가져오기
 ========================= */
 
-const profileData =
-    localStorage.getItem(
-        profileId
-    );
+async function loadProfile() {
+
+    try {
+
+        if (!profileId) {
+
+            showProfileNotFound();
+
+            return;
+
+        }
 
 
-if (profileData) {
+        const response =
+            await fetch(
+                "/api/dancers"
+            );
 
 
-    const profile =
-        JSON.parse(
-            profileData
-        );
+        if (!response.ok) {
+
+            throw new Error(
+                "프로필 데이터를 불러오지 못했습니다."
+            );
+
+        }
 
 
-    /* 이름 */
-
-    document.getElementById(
-        "dancerName"
-    ).textContent =
-        profile.dancerName ||
-        "-";
+        const profiles =
+            await response.json();
 
 
-    /* 실제 이름 */
-
-    document.getElementById(
-        "realName"
-    ).textContent =
-        profile.realName ||
-        "-";
-
-
-    /* 나이 */
-
-    document.getElementById(
-        "age"
-    ).textContent =
-        profile.age ||
-        "-";
+        const profile =
+            profiles.find(
+                item =>
+                    String(item.id) ===
+                    String(profileId)
+            );
 
 
-    /* 주장르 */
+        if (!profile) {
 
-    document.getElementById(
-        "mainGenre"
-    ).textContent =
-        profile.mainGenre ||
-        "-";
+            showProfileNotFound();
 
+            return;
 
-    /* 부장르 */
-
-    document.getElementById(
-        "subGenre"
-    ).textContent =
-        profile.subGenre ||
-        "-";
+        }
 
 
-    /* 활동지역 */
+        /* =========================
+           이름
+        ========================= */
 
-    document.getElementById(
-        "activityLocation"
-    ).textContent =
-        profile.activityLocation ||
-        "-";
-
-
-    /* 현재 거주지역 */
-
-    document.getElementById(
-        "currentLocation"
-    ).textContent =
-        profile.currentLocation ||
-        "-";
-
-
-    /* 자기소개 */
-
-    document.getElementById(
-        "description"
-    ).textContent =
-        profile.description ||
-        "등록된 자기소개가 없습니다.";
-
-
-    /* 경력 */
-
-    document.getElementById(
-        "career"
-    ).textContent =
-        profile.career ||
-        "등록된 경력사항이 없습니다.";
-
-
-    /* SNS */
-
-    const sns =
         document.getElementById(
-            "sns"
+            "dancerName"
+        ).textContent =
+            profile.stage_name ||
+            "-";
+
+
+        /* =========================
+           실제 이름
+        ========================= */
+
+        document.getElementById(
+            "realName"
+        ).textContent =
+            profile.name ||
+            "-";
+
+
+        /* =========================
+           나이
+        ========================= */
+
+        document.getElementById(
+            "age"
+        ).textContent =
+            profile.age ||
+            "-";
+
+
+        /* =========================
+           주장르
+        ========================= */
+
+        document.getElementById(
+            "mainGenre"
+        ).textContent =
+            profile.main_genre ||
+            "-";
+
+
+        /* =========================
+           부장르
+        ========================= */
+
+        document.getElementById(
+            "subGenre"
+        ).textContent =
+            profile.sub_genre ||
+            "-";
+
+
+        /* =========================
+           활동지역
+        ========================= */
+
+        document.getElementById(
+            "activityLocation"
+        ).textContent =
+            profile.available_region ||
+            "-";
+
+
+        /* =========================
+           현재 거주지역
+        ========================= */
+
+        document.getElementById(
+            "currentLocation"
+        ).textContent =
+            profile.residence ||
+            "-";
+
+
+        /* =========================
+           자기소개
+        ========================= */
+
+        document.getElementById(
+            "description"
+        ).textContent =
+            profile.introduction ||
+            "등록된 자기소개가 없습니다.";
+
+
+        /* =========================
+           경력
+        ========================= */
+
+        document.getElementById(
+            "career"
+        ).textContent =
+            profile.career ||
+            "등록된 경력사항이 없습니다.";
+
+
+        /* =========================
+           SNS
+        ========================= */
+
+        const sns =
+            document.getElementById(
+                "sns"
+            );
+
+
+        if (profile.sns) {
+
+            sns.innerHTML = `
+
+                <a
+                    href="${escapeHTML(
+                        profile.sns
+                    )}"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="sns-link"
+                >
+
+                    SNS PROFILE →
+
+                </a>
+
+            `;
+
+        } else {
+
+            sns.textContent =
+                "등록된 SNS가 없습니다.";
+
+        }
+
+    } catch (error) {
+
+        console.error(
+            "프로필 불러오기 오류:",
+            error
         );
 
 
-    if (profile.sns) {
-
-        sns.innerHTML = `
-
-            <a
-                href="${profile.sns}"
-                target="_blank"
-                rel="noopener noreferrer"
-                class="sns-link"
-            >
-
-                SNS PROFILE →
-
-            </a>
-
-        `;
-
-    } else {
-
-        sns.textContent =
-            "등록된 SNS가 없습니다.";
+        showProfileNotFound();
 
     }
 
-} else {
+}
 
 
-    document.querySelector(
-        ".profile-container"
-    ).innerHTML = `
+/* =========================
+   프로필 없음
+========================= */
+
+function showProfileNotFound() {
+
+    const container =
+        document.querySelector(
+            ".profile-container"
+        );
+
+
+    if (!container) {
+
+        return;
+
+    }
+
+
+    container.innerHTML = `
 
         <h1>
             PROFILE NOT FOUND
@@ -863,6 +947,36 @@ if (profileData) {
     `;
 
 }
+
+
+/* =========================
+   HTML 보안 처리
+========================= */
+
+function escapeHTML(
+    text
+) {
+
+    const div =
+        document.createElement(
+            "div"
+        );
+
+
+    div.textContent =
+        text;
+
+
+    return div.innerHTML;
+
+}
+
+
+/* =========================
+   처음 실행
+========================= */
+
+loadProfile();
 
 </script>
 
